@@ -1,0 +1,9 @@
+:root {
+  --background-color: black;
+  --foreground-color: white;
+  --input-background-color: transparent;
+}
+
+$background-color: var(--background-color);
+$foreground-color: var(--foreground-color);
+$input-background-color: var(--input-background-color);

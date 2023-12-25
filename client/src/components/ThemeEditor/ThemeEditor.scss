@@ -1,0 +1,21 @@
+.ThemeEditor {
+  max-width: fit-content;
+  padding: 0.5rem;
+
+  .inputsContainer {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 0.5rem;
+
+    img {
+      display: none;
+    }
+  }
+
+  button {
+    margin-top: 0.1rem;
+    &.hidden {
+      visibility: hidden;
+    }
+  }
+}

@@ -1,0 +1,27 @@
+@use '~/vars.scss' as *;
+
+.TabsContainer {
+  display: flex;
+
+  .Tab {
+    padding: 0.5rem 1rem;
+    user-select: none;
+    cursor: pointer;
+
+    &.active {
+      background-color: color-mix(
+        in srgb,
+        $background-color,
+        $foreground-color 30%
+      );
+    }
+
+    &:hover {
+      background-color: color-mix(
+        in srgb,
+        $background-color,
+        $foreground-color 20%
+      );
+    }
+  }
+}

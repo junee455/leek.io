@@ -1,13 +1,13 @@
-import React from 'react';
-import './App.css';
-import { Main } from './components/main/Main';
+import React, { useEffect, useState } from 'react'
+import { StartPage, Header, EditIngredient, ThemeEditor } from 'components'
+import { RouterProvider } from 'react-router-dom'
 
-function App() {
+import { router } from 'router'
+
+export function App() {
   return (
-    <div className="App">
-      <Main />
+    <div id="App">
+      <RouterProvider router={router} />
     </div>
-  );
+  )
 }
-
-export default App;

@@ -1,20 +1,25 @@
 import React from 'react'
 
-import { FormBuilder } from 'components/utils'
+import { FormBuilder, useFormBuilder } from 'components/utils'
 
 import './EditIngredient.scss'
 
+const ingredientFormDataKeys = [
+  'name',
+  'description',
+  'pictures',
+  'tags',
+] as const
+
+type IngredientFormData = {
+  [key in typeof ingredientFormDataKeys[number]]: string
+}
+
 export function EditIngredient() {
-  const formData = {
-    name: 'Bell pepper',
-    description: 'regularr bell pepper',
-    picture: 'somePic.png',
-    tags: ['1', '2', '3'],
-  }
+  const formBuilder = useFormBuilder(ingredientFormDataKeys);
 
   return (
     <div className="EditIngredient">
-      <FormBuilder data={formData} />
       <button>Save</button>
     </div>
   )

@@ -6,7 +6,6 @@ export function StartPage() {
   return (
     <div>
       <Header />
-      <div>Start page  aaaa</div>
     </div>
   )
 }

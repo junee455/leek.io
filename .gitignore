@@ -133,3 +133,6 @@ dist
 
 # mongo db data
 mongo/data
+
+dev.db
+

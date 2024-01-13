@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Tab, TabProps } from './Tab'
 
@@ -11,31 +11,45 @@ export interface TabContainerProps {
 }
 
 export function TabContainer(props: TabContainerProps) {
-  const { tabs, queryParam = 'tab' } = props
+  const { tabs, queryParam = '' } = props
 
   const [queryParams, setQueryParams] = useSearchParams()
 
-  const activeTab = Number(queryParams.get(queryParam) || 0)
+  const getActiveTabIndex = () => {
+    return Math.min(
+      Math.max(0, Number(queryParams.get(queryParam) || 0)),
+      tabs.length - 1
+    )
+  }
+
+  const [activeTab, setActiveTab] = useState(getActiveTabIndex())
 
   const onTabClick = (index: number) => {
     const newParams = new URLSearchParams(queryParams)
+    setActiveTab(index)
+    if (!queryParam) {
+      return
+    }
     newParams.set(queryParam, index.toString())
     setQueryParams(newParams)
   }
 
   return (
-    <div className="TabsContainer">
-      {tabs.map((tabProps, i) => {
-        const key = tabProps.key || Math.random().toString()
-        return (
-          <Tab
-            onClick={() => onTabClick(i)}
-            active={activeTab == i}
-            {...tabProps}
-            key={key}
-          />
-        )
-      })}
-    </div>
+    <>
+      <div className="TabsContainer">
+        {tabs.map((tabProps, i) => {
+          const key = tabProps.key || Math.random().toString()
+          return (
+            <Tab
+              onClick={() => onTabClick(i)}
+              active={activeTab == i}
+              {...tabProps}
+              key={key}
+            />
+          )
+        })}
+      </div>
+      {tabs[activeTab].component}
+    </>
   )
 }

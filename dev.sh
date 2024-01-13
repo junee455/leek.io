@@ -1,3 +1,2 @@
 #!/usr/bin/bash
-
-docker-compose -f compose.yml up --build
+docker compose up --build

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
-import { StartPage, Login } from 'components'
+import { StartPage, Login, NotFound } from 'components'
 import {
+  Navigate,
   Route,
   Routes,
   createBrowserRouter,
@@ -22,10 +23,11 @@ function AnyElement() {
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
+      <Route path="/" element={<Navigate to="main" />} />
+      <Route path="main" element={<StartPage />} />
       <Route path="login" element={<Login />} />
-      <Route path="start" element={<StartPage />} />
       <Route path="any" element={<AnyElement />} />
-      <Route path="*" element={<StartPage />} />
+      <Route path="*" element={<NotFound />} />
     </Route>
   )
 )

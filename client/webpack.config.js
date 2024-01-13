@@ -1,7 +1,33 @@
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
+const dotenv = require('dotenv')
 const path = require('path')
+
+
+
+const envFilePaths = {
+  development: '.env.development'
+}
+
+dotenv.config({ path: envFilePaths[process.env.NODE_ENV] })
+
+function passEnvVariables() {
+  const reactAppEnvVars = ['BASE_URL']
+
+  const generatedVars = reactAppEnvVars.reduce(
+    (envObj, varName) => ({
+      ...envObj,
+      [`process.env.${varName}`]: JSON.stringify(process.env[varName]),
+    }),
+    {}
+  )
+
+  return new webpack.DefinePlugin({
+    ...generatedVars,
+  })
+}
 
 module.exports = {
   entry: './src/index.tsx',
@@ -36,7 +62,7 @@ module.exports = {
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
         type: 'asset/resource',
       },
     ],
@@ -56,5 +82,6 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [{ from: 'assets', noErrorOnMissing: true }],
     }),
+    passEnvVariables(),
   ],
 }

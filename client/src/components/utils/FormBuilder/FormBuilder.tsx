@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import './FormBuilder.scss'
 
 export interface FormBuilderProps<T> {
-  data: T
+  data: Partial<T>
   onChange?: (key: keyof T, value: T[typeof key] | any) => void
   onSubmit?: () => void
   onError?: () => void
@@ -28,4 +28,8 @@ export function FormBuilder<T>(props: FormBuilderProps<T>) {
   }
 
   return <div className="FormBuilder">{renderFormFields()}</div>
+}
+
+export function useFormBuilder<T>(keys: (keyof T)[]) {
+  return keys;
 }
